@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.sql.*;
 
@@ -31,6 +33,16 @@ public class AddDepartment extends JFrame implements ActionListener{
 		departNametextField.setBounds(33, 207, 275, 41);
 		getContentPane().add(departNametextField);
 		departNametextField.setColumns(10);
+		departNametextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_2 = new JLabel("Enter Department Head : ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -41,6 +53,16 @@ public class AddDepartment extends JFrame implements ActionListener{
 		departHeadtextField.setBounds(33, 326, 275, 41);
 		getContentPane().add(departHeadtextField);
 		departHeadtextField.setColumns(10);
+		departHeadtextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		addButton = new JButton("Add");
 		addButton.setBackground(Color.GREEN);
@@ -55,7 +77,7 @@ public class AddDepartment extends JFrame implements ActionListener{
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBounds(33, 600, 132, 39);

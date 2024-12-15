@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 
 public class AddStudent extends JFrame implements ActionListener{
@@ -38,6 +40,16 @@ public class AddStudent extends JFrame implements ActionListener{
 		fnametextField.setBounds(45, 137, 256, 31);
 		getContentPane().add(fnametextField);
 		fnametextField.setColumns(10);
+		fnametextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_2 = new JLabel("Enter Student Last Name :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -48,6 +60,17 @@ public class AddStudent extends JFrame implements ActionListener{
 		lnametextField.setBounds(45, 219, 256, 31);
 		getContentPane().add(lnametextField);
 		lnametextField.setColumns(10);
+		
+		lnametextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_3 = new JLabel("Enter Date Of Birth :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -83,6 +106,16 @@ public class AddStudent extends JFrame implements ActionListener{
 		mobiletextField.setBounds(45, 506, 256, 31);
 		getContentPane().add(mobiletextField);
 		mobiletextField.setColumns(10);
+		mobiletextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only digits (0-9)
+                if (!Character.isDigit(c)) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_7 = new JLabel("Enter Student Address :");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -152,7 +185,7 @@ public class AddStudent extends JFrame implements ActionListener{
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));

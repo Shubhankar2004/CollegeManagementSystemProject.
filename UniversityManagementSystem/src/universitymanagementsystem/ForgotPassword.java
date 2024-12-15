@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.PasswordAuthentication;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ForgotPassword extends JFrame implements ActionListener{
 	private JTextField userTextField;
@@ -38,6 +40,16 @@ public class ForgotPassword extends JFrame implements ActionListener{
 		mobileTextField.setBounds(61, 284, 241, 47);
 		getContentPane().add(mobileTextField);
 		mobileTextField.setColumns(10);
+		mobileTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only digits (0-9)
+                if (!Character.isDigit(c)) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_1 = new JLabel("Enter New Password :");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -71,7 +83,7 @@ public class ForgotPassword extends JFrame implements ActionListener{
 		resetNewButton.addActionListener(this);
 		getContentPane().add(resetNewButton);
 		
-		cancelNewButton = new JButton("Cancel");
+		cancelNewButton = new JButton("Exit");
 		cancelNewButton.setBackground(Color.RED);
 		cancelNewButton.setForeground(Color.WHITE);
 		cancelNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -113,7 +125,7 @@ public class ForgotPassword extends JFrame implements ActionListener{
 						if(passwordField.getText().equals(passwordField_1.getText())) {
 							try {
 								Conn con = new Conn();
-								con.s.executeUpdate("update admin set password='"+passwordField.getText()+"' where username='"+userTextField.getText()+"' and mobile='"+mobileTextField.getText()+"'");
+								con.s.executeUpdate("update admin set passwrd='"+passwordField.getText()+"' where username='"+userTextField.getText()+"' and mobile='"+mobileTextField.getText()+"'");
 								
 								JOptionPane.showMessageDialog(null,"Pass word changed successfully !!!!");
 								setVisible(false);

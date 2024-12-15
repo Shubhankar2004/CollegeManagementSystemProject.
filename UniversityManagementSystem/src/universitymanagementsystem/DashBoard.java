@@ -194,15 +194,8 @@ public class DashBoard extends JFrame implements ActionListener{
 			}else if(ae.getSource()==courseDetailsMenuItem) {
 				new CourseDetails();
 			}else if(ae.getSource()==LogOutMenuItem) {
-				try {
-					Conn con = new Conn();
-					con.c.close();
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-				
 				setVisible(false);
-				
+				new Login();				
 			}else if(ae.getSource()==calMenuItem) {
 				try {
 					Runtime.getRuntime().exec("calc.exe");

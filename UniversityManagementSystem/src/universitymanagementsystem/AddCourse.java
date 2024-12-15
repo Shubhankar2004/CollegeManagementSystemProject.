@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.DecimalFormat;
 
@@ -36,6 +38,16 @@ public class AddCourse extends JFrame implements ActionListener{
 		courseNametextField.setBounds(53, 197, 213, 37);
 		getContentPane().add(courseNametextField);
 		courseNametextField.setColumns(10);
+		courseNametextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_2 = new JLabel("Enter Course Credits :");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -46,6 +58,16 @@ public class AddCourse extends JFrame implements ActionListener{
 		credittextField.setBounds(53, 285, 213, 37);
 		getContentPane().add(credittextField);
 		credittextField.setColumns(10);
+		credittextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only digits (0-9)
+                if (!Character.isDigit(c)) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_3 = new JLabel("Select Department :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -76,6 +98,16 @@ public class AddCourse extends JFrame implements ActionListener{
 		feetextField.setBounds(53, 543, 213, 37);
 		getContentPane().add(feetextField);
 		feetextField.setColumns(10);
+		feetextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only digits (0-9)
+                if (!Character.isDigit(c)) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		addButton = new JButton("Add");
 		addButton.setBackground(Color.GREEN);
@@ -90,7 +122,7 @@ public class AddCourse extends JFrame implements ActionListener{
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));

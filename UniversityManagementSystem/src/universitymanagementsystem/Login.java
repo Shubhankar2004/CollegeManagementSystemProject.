@@ -51,7 +51,7 @@ public class Login extends JFrame implements ActionListener{
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));

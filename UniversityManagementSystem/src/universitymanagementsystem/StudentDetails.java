@@ -54,7 +54,7 @@ public class StudentDetails extends JFrame implements ActionListener {
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cancelButton.setBounds(780, 118, 101, 49);

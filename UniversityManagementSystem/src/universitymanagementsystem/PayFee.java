@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PayFee extends JFrame implements ActionListener {
 	private JTextField studNametextField;
@@ -109,6 +111,16 @@ public class PayFee extends JFrame implements ActionListener {
 		amttextField.setBounds(414, 274, 256, 37);
 		getContentPane().add(amttextField);
 		amttextField.setColumns(10);
+		amttextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only digits (0-9)
+                if (!Character.isDigit(c)) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_9 = new JLabel("Fee Status :");
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -171,7 +183,7 @@ public class PayFee extends JFrame implements ActionListener {
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));

@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 
 public class UpdateStudent extends JFrame implements ActionListener {
@@ -12,8 +14,9 @@ public class UpdateStudent extends JFrame implements ActionListener {
 	private JTextField emailtextField;
 	private JTextField mobtextField;
 	private JTextField addresstextField;
-	private JButton updtfnmButton,updtlnmButton,dobButton,emailButton,mobButton,addressButton,resetButton,cancelButton;
+	private JButton resetButton,cancelButton;
 	private JComboBox<String>comboBox;
+	private JButton updateButton;
 	
 	public UpdateStudent() {
 		setTitle("Update Student");
@@ -44,6 +47,16 @@ public class UpdateStudent extends JFrame implements ActionListener {
 		fnametextField.setBounds(27, 271, 256, 37);
 		getContentPane().add(fnametextField);
 		fnametextField.setColumns(10);
+		fnametextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_3 = new JLabel("Student Last Name :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -54,6 +67,16 @@ public class UpdateStudent extends JFrame implements ActionListener {
 		lnametextField.setBounds(27, 365, 256, 37);
 		getContentPane().add(lnametextField);
 		lnametextField.setColumns(10);
+		lnametextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_4 = new JLabel("Date Of Birth(YYYY-MM-DD):");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -75,34 +98,6 @@ public class UpdateStudent extends JFrame implements ActionListener {
 		getContentPane().add(emailtextField);
 		emailtextField.setColumns(10);
 		
-		updtfnmButton = new JButton("Update");
-		updtfnmButton.setBackground(Color.GREEN);
-		updtfnmButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		updtfnmButton.setBounds(309, 271, 85, 37);
-		updtfnmButton.addActionListener(this);
-		getContentPane().add(updtfnmButton);
-		
-		updtlnmButton = new JButton("Update");
-		updtlnmButton.setBackground(Color.GREEN);
-		updtlnmButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		updtlnmButton.setBounds(309, 365, 85, 37);
-		updtlnmButton.addActionListener(this);
-		getContentPane().add(updtlnmButton);
-		
-		dobButton = new JButton("Update");
-		dobButton.setBackground(Color.GREEN);
-		dobButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		dobButton.setBounds(309, 457, 85, 37);
-		dobButton.addActionListener(this);
-		getContentPane().add(dobButton);
-		
-		emailButton = new JButton("Update");
-		emailButton.setBackground(Color.GREEN);
-		emailButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		emailButton.setBounds(309, 551, 85, 37);
-		emailButton.addActionListener(this);
-		getContentPane().add(emailButton);
-		
 		JLabel lblNewLabel_7 = new JLabel("Student Mobile :");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_7.setBounds(27, 600, 244, 37);
@@ -112,13 +107,16 @@ public class UpdateStudent extends JFrame implements ActionListener {
 		mobtextField.setBounds(27, 647, 256, 37);
 		getContentPane().add(mobtextField);
 		mobtextField.setColumns(10);
-		
-		mobButton = new JButton("Update");
-		mobButton.setBackground(Color.GREEN);
-		mobButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		mobButton.setBounds(309, 645, 85, 37);
-		mobButton.addActionListener(this);
-		getContentPane().add(mobButton);
+		mobtextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only digits (0-9)
+                if (!Character.isDigit(c)) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_8 = new JLabel("Student Address :");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -130,24 +128,17 @@ public class UpdateStudent extends JFrame implements ActionListener {
 		getContentPane().add(addresstextField);
 		addresstextField.setColumns(10);
 		
-		addressButton = new JButton("Update");
-		addressButton.setBackground(Color.GREEN);
-		addressButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		addressButton.setBounds(680, 177, 85, 37);
-		addressButton.addActionListener(this);
-		getContentPane().add(addressButton);
-		
 		resetButton = new JButton("Reset");
 		resetButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		resetButton.setBounds(404, 224, 101, 49);
+		resetButton.setBounds(534, 224, 101, 49);
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cancelButton.setBounds(530, 224, 101, 49);
+		cancelButton.setBounds(664, 224, 101, 49);
 		cancelButton.addActionListener(this);
 		getContentPane().add(cancelButton);
 		
@@ -155,8 +146,15 @@ public class UpdateStudent extends JFrame implements ActionListener {
 		Image i2 = i1.getImage().getScaledInstance(378,401,Image.SCALE_DEFAULT);
 		ImageIcon i3 = new ImageIcon(i2);
 		JLabel image = new JLabel(i3);
-		image.setBounds(404, 283, 378, 401);
+		image.setBounds(316, 283, 466, 401);
 		getContentPane().add(image);
+		
+		updateButton = new JButton("Update");
+		updateButton.setBackground(Color.GREEN);
+		updateButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		updateButton.setBounds(404, 224, 101, 49);
+		updateButton.addActionListener(this);
+		getContentPane().add(updateButton);
 		
 		comboBox.addItem("0");
 		
@@ -209,54 +207,9 @@ public class UpdateStudent extends JFrame implements ActionListener {
 			addresstextField.setText(null);
 		}else if(ae.getSource()==cancelButton) {
 			setVisible(false);
-		}else if(ae.getSource()==updtfnmButton) {
+		}else if(ae.getSource()==updateButton) {
 			try {
-				con.s.executeUpdate("update student set first_name = '"+fnametextField.getText()+"' where stud_id = "+sid+"  ");
-			
-				JOptionPane.showMessageDialog(null,"Updation Successful !!!!");
-			
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}else if(ae.getSource()==updtlnmButton) {
-			try {
-				con.s.executeUpdate("update student set last_name = '"+lnametextField.getText()+"' where stud_id = "+sid+"  ");
-			
-				JOptionPane.showMessageDialog(null,"Updation Successful !!!!");
-			
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}else if(ae.getSource()==dobButton) {
-			try {
-				con.s.executeUpdate("update student set dob = '"+dobtextField.getText()+"' where stud_id = "+sid+"  ");
-			
-				JOptionPane.showMessageDialog(null,"Updation Successful !!!!");
-			
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}else if(ae.getSource()==emailButton) {
-			try {
-				con.s.executeUpdate("update student set email = '"+emailtextField.getText()+"' where stud_id = "+sid+"  ");
-			
-				JOptionPane.showMessageDialog(null,"Updation Successful !!!!");
-			
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}else if(ae.getSource()==mobButton) {
-			try {
-				con.s.executeUpdate("update student set mobile = '"+mobtextField.getText()+"' where stud_id = "+sid+"  ");
-			
-				JOptionPane.showMessageDialog(null,"Updation Successful !!!!");
-			
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}else if(ae.getSource()==addressButton) {
-			try {
-				con.s.executeUpdate("update student set address = '"+addresstextField.getText()+"' where stud_id = "+sid+"  ");
+				con.s.executeUpdate("update student set first_name = '"+fnametextField.getText()+"' , last_name = '"+lnametextField.getText()+"' , dob = '"+dobtextField.getText()+"' , email = '"+emailtextField.getText()+"' , mobile = '"+mobtextField.getText()+"' , address = '"+addresstextField.getText()+"' where stud_id = "+sid+"  ");
 			
 				JOptionPane.showMessageDialog(null,"Updation Successful !!!!");
 			

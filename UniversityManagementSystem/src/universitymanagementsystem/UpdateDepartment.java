@@ -3,12 +3,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 
 public class UpdateDepartment extends JFrame implements ActionListener {
 	private JTextField dnametextField;
 	private JTextField dheadtextField;
-	private JButton dnameButton,dheadButton,resetButton,cancelButton;
+	private JButton updateButton,resetButton,cancelButton;
 	private JComboBox<String>comboBox;
 	public UpdateDepartment() {
 		setTitle("Update Department");
@@ -39,6 +41,16 @@ public class UpdateDepartment extends JFrame implements ActionListener {
 		dnametextField.setBounds(56, 283, 256, 37);
 		getContentPane().add(dnametextField);
 		dnametextField.setColumns(10);
+		dnametextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		JLabel lblNewLabel_3 = new JLabel("Department Head :");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -49,32 +61,28 @@ public class UpdateDepartment extends JFrame implements ActionListener {
 		dheadtextField.setBounds(56, 377, 256, 37);
 		getContentPane().add(dheadtextField);
 		dheadtextField.setColumns(10);
-		
-		dnameButton = new JButton("Update");
-		dnameButton.setBackground(Color.GREEN);
-		dnameButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		dnameButton.setBounds(338, 283, 85, 37);
-		dnameButton.addActionListener(this);
-		getContentPane().add(dnameButton);
-		
-		dheadButton = new JButton("Update");
-		dheadButton.setBackground(Color.GREEN);
-		dheadButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		dheadButton.setBounds(338, 377, 85, 37);
-		dheadButton.addActionListener(this);
-		getContentPane().add(dheadButton);
+		dheadtextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Allow only alphabetic characters (A-Z, a-z) and spaces
+                if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE) {
+                    e.consume(); // Ignore the event (do not allow the character)
+                }
+            }
+        });
 		
 		resetButton = new JButton("Reset");
 		resetButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		resetButton.setBounds(56, 480, 101, 49);
+		resetButton.setBounds(56, 558, 101, 49);
 		resetButton.addActionListener(this);
 		getContentPane().add(resetButton);
 		
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Exit");
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cancelButton.setBounds(56, 576, 101, 49);
+		cancelButton.setBounds(56, 640, 101, 49);
 		cancelButton.addActionListener(this);
 		getContentPane().add(cancelButton);
 		
@@ -82,8 +90,15 @@ public class UpdateDepartment extends JFrame implements ActionListener {
 		Image i2 = i1.getImage().getScaledInstance(307,483,Image.SCALE_DEFAULT);
 		ImageIcon i3 = new ImageIcon(i2);
 		JLabel image = new JLabel(i3);
-		image.setBounds(451, 142, 307, 483);
+		image.setBounds(343, 142, 415, 483);
 		getContentPane().add(image);
+		
+		updateButton = new JButton("Update");
+		updateButton.setBackground(Color.GREEN);
+		updateButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		updateButton.setBounds(56, 475, 101, 49);
+		updateButton.addActionListener(this);
+		getContentPane().add(updateButton);
 		
 		comboBox.addItem("0");
 		
@@ -130,26 +145,17 @@ public class UpdateDepartment extends JFrame implements ActionListener {
 			dheadtextField.setText(null);
 		}else if(ae.getSource()==cancelButton) {
 			setVisible(false);
-		}else if(ae.getSource()==dnameButton) {
-			try {
-				
-				con.s.executeUpdate("Update department set depart_name = '"+dnametextField.getText()+"' where depart_id = "+did+" ");
-			
-				JOptionPane.showMessageDialog(null,"Updation Successful !!!! ");
-			
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}else if(ae.getSource()==dheadButton) {
+		}else if(ae.getSource()==updateButton) {
 			try {
 
-				con.s.executeUpdate("Update department set depart_head = '"+dheadtextField.getText()+"' where depart_id = "+did+" ");
+				con.s.executeUpdate("Update department set depart_head = '"+dheadtextField.getText()+"',depart_name = '"+dnametextField.getText()+"' where depart_id = "+did+" ");
 			
 				JOptionPane.showMessageDialog(null,"Updation Successful !!!! ");
 			
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+
 		}
 	}
 }
